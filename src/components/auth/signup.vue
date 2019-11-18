@@ -3,7 +3,7 @@
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
         <div class="input" :class="{invalid: $v.email.$error}">
-          <label for="email">Mail</label>
+          <label for="email">Email</label>
           <input
                   type="email"
                   id="email"
@@ -104,10 +104,9 @@
         email,
         unique: val => {
           if (val === '') return true
-          return axios.get('/users.json?orderBy="email"&equalTo=' + val + "")
+          return axios.get('/users.json?orderBy="email"&equalTo="' + val + '"')
             .then(res => {
-              console.log(res);
-              return false
+              return Object.keys(res.data).length === 0
             })
         }
       },
